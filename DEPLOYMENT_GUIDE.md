@@ -62,7 +62,7 @@ SIHTEMPLE2025/
    NODE_ENV=production
    PORT=5000
    MONGO_URI=your_mongodb_atlas_connection_string
-   STRIPE_SECRET_KEY=sk_live_your_stripe_secret_key
+   STRIPE_SECRET_KEY=your_stripe_secret_key
    STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret
    EMAIL_USER=your-email@gmail.com
    EMAIL_PASS=your_gmail_app_password

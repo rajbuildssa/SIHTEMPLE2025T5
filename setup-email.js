@@ -28,11 +28,11 @@ NODE_ENV=development
 # MONGODB_URI=mongodb://localhost:27017/sihtemple
 
 # Stripe Configuration (if needed for payments)
-# STRIPE_SECRET_KEY=sk_test_...
+# STRIPE_SECRET_KEY=your_stripe_secret_key
 # STRIPE_WEBHOOK_SECRET=whsec_...
 
 # Clerk Authentication (if needed)
-# CLERK_SECRET_KEY=sk_test_...
+# CLERK_SECRET_KEY=your_clerk_secret_key
 `;
 
     fs.writeFileSync(envPath, envContent);
