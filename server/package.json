@@ -7,8 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "build": "echo 'No build step required'",
-    "vercel-build": "echo 'Vercel build completed'"
+    "build": "echo 'No build step required'"
   },
   "keywords": ["temple", "booking", "e-darshan", "api", "backend"],
   "author": "",
