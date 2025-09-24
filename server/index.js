@@ -219,10 +219,12 @@ app.use((req, res) => {
 mongoose
   .connect(MONGO_URI)
   .then(() => {
+    console.log('✅ Connected to MongoDB successfully');
     server.listen(PORT, () =>
-      console.log(`Server running on port ${PORT}`)
+      console.log(`🚀 Server running on port ${PORT}`)
     );
   })
   .catch((err) => {
-    console.error('Failed to connect to MongoDB:', err?.message || err);
+    console.error('❌ Failed to connect to MongoDB:', err?.message || err);
+    console.error('MongoDB URI:', MONGO_URI);
   });

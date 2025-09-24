@@ -6,6 +6,11 @@ import emailService from "../utils/emailService.js";
 
 const router = express.Router();
 
+// Health check for booking routes
+router.get("/health", (req, res) => {
+  res.json({ status: "Booking routes working", timestamp: new Date().toISOString() });
+});
+
 // List all bookings (temporary, no auth)
 router.get("/", async (req, res) => {
   try {
@@ -96,12 +101,17 @@ router.post("/test-email", async (req, res) => {
 // Get a booking (ticket) by id
 router.get("/:id", async (req, res) => {
   try {
+    console.log(`Fetching booking with ID: ${req.params.id}`);
     const ticket = await Ticket.findById(req.params.id).populate("temple");
-    if (!ticket) return res.status(404).json({ message: "Ticket not found" });
+    if (!ticket) {
+      console.log(`Ticket not found with ID: ${req.params.id}`);
+      return res.status(404).json({ message: "Ticket not found" });
+    }
+    console.log(`Ticket found: ${ticket.devoteeName} for temple: ${ticket.temple?.name}`);
     res.json(ticket);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Failed to fetch ticket" });
+    console.error("Error fetching ticket:", err);
+    res.status(500).json({ message: "Failed to fetch ticket", error: err.message });
   }
 });
 
