@@ -8,7 +8,9 @@ import Button from '../../../components/ui/Button';
 import Input from '../../../components/ui/Input';
 
 // Initialize Stripe (replace with your publishable key)
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+const stripePromise = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY 
+  ? loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY)
+  : null;
 
 const PaymentIntegration = ({ bookingData, onPaymentMethodSelect, onPaymentComplete }) => {
   const [paymentStep, setPaymentStep] = useState('method'); // method, processing, success
@@ -20,6 +22,9 @@ const PaymentIntegration = ({ bookingData, onPaymentMethodSelect, onPaymentCompl
     setPaymentStep('processing');
 
     try {
+      if (!stripePromise) {
+        throw new Error('Stripe is not configured');
+      }
       const stripe = await stripePromise;
       await getToken();
 
