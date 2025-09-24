@@ -198,7 +198,7 @@ io.on("connection", (socket) => {
 });
 
 // Catch-all route handler for debugging
-app.use("*", (req, res) => {
+app.use((req, res) => {
   console.log(`Unhandled route: ${req.method} ${req.originalUrl}`);
   res.status(404).json({ 
     error: "Route not found", 
