@@ -34,7 +34,14 @@ const io = new Server(server, { cors: { origin: "*" } });
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/sih_temple';
 
-app.use(cors());
+app.use(cors({
+     origin: [
+       'https://sihtemple-2025frontende.vercel.app/',
+       'http://localhost:3000', // for local development
+       'http://localhost:5173'  // for local development
+     ],
+     credentials: true
+   }));
 // Stripe webhook requires the raw body. Mount a raw parser for that path before JSON parser.
 app.use("/api/payments/webhook", express.raw({ type: "application/json" }));
 app.use(express.json());
