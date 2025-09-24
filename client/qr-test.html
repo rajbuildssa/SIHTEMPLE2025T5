@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Test - Temple Analytics</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin: 20px 0;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #8B4513;
+            margin: 0;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        button {
+            background: #8B4513;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #A0522D;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .result {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 6px;
+            display: none;
+        }
+        .result.success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .result.error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .qr-display {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .qr-display img {
+            max-width: 200px;
+            border: 2px solid #8B4513;
+            border-radius: 8px;
+            padding: 10px;
+            background: white;
+        }
+        .instructions {
+            background: #e8f4f8;
+            border: 1px solid #b8daff;
+            color: #004085;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #004085;
+        }
+        .qr-data {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            word-break: break-all;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🕉️ QR Code Test - Temple Analytics</h1>
+            <p>Test QR code generation for E-Darshan tickets</p>
+        </div>
+
+        <div class="test-section">
+            <h3>Test QR Code Generation</h3>
+            <button onclick="testQRGeneration()" id="qrTestBtn">
+                Generate Test QR Code
+            </button>
+        </div>
+
+        <div class="test-section">
+            <h3>Test PDF Generation with QR Code</h3>
+            <button onclick="testPDFGeneration()" id="pdfTestBtn">
+                Generate Test PDF
+            </button>
+        </div>
+
+        <div id="result" class="result"></div>
+
+        <div id="qrDisplay" class="qr-display" style="display: none;">
+            <h3>Generated QR Code:</h3>
+            <img id="qrImage" alt="QR Code" />
+            <div id="qrData" class="qr-data"></div>
+        </div>
+
+        <div class="instructions">
+            <h3>📋 Testing Instructions:</h3>
+            <ul>
+                <li>Click "Generate Test QR Code" to test QR code creation</li>
+                <li>Click "Generate Test PDF" to create a PDF with QR code</li>
+                <li>Check browser console (F12) for detailed logs</li>
+                <li>Use a QR scanner app to test the generated QR code</li>
+                <li>Look for downloaded PDF files in your browser's download folder</li>
+            </ul>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import the QR test utility
+        async function testQRGeneration() {
+            const resultDiv = document.getElementById('result');
+            const qrDisplay = document.getElementById('qrDisplay');
+            const qrImage = document.getElementById('qrImage');
+            const qrData = document.getElementById('qrData');
+
+            // Reset display
+            resultDiv.style.display = 'none';
+            qrDisplay.style.display = 'none';
+
+            // Disable buttons
+            document.getElementById('qrTestBtn').disabled = true;
+            document.getElementById('pdfTestBtn').disabled = true;
+
+            try {
+                console.log('Testing QR code generation...');
+
+                // Test data
+                const testData = JSON.stringify({
+                    bookingId: 'TEST123456',
+                    temple: 'Test Temple',
+                    date: '2025-01-15',
+                    timeSlot: '10:00 AM',
+                    ticketType: 'VIP Darshan',
+                    tickets: 2
+                });
+
+                console.log('Test data:', testData);
+
+                // Generate QR code
+                const QRCode = await import('./src/utils/qrTest.js');
+                const result = await QRCode.testQRCodeGeneration();
+
+                console.log('Test result:', result);
+
+                // Display result
+                resultDiv.textContent = result.message;
+                resultDiv.className = `result ${result.success ? 'success' : 'error'}`;
+                resultDiv.style.display = 'block';
+
+                if (result.success && result.qrCodeDataURL) {
+                    qrImage.src = result.qrCodeDataURL;
+                    qrData.textContent = testData;
+                    qrDisplay.style.display = 'block';
+                }
+
+            } catch (error) {
+                console.error('Test failed:', error);
+                resultDiv.textContent = `Test failed: ${error.message}`;
+                resultDiv.className = 'result error';
+                resultDiv.style.display = 'block';
+            } finally {
+                // Re-enable buttons
+                document.getElementById('qrTestBtn').disabled = false;
+                document.getElementById('pdfTestBtn').disabled = false;
+            }
+        }
+
+        async function testPDFGeneration() {
+            const resultDiv = document.getElementById('result');
+
+            // Reset display
+            resultDiv.style.display = 'none';
+
+            // Disable buttons
+            document.getElementById('qrTestBtn').disabled = true;
+            document.getElementById('pdfTestBtn').disabled = true;
+
+            try {
+                console.log('Testing PDF generation...');
+
+                // Test booking data
+                const testBookingData = {
+                    id: 'TEST123456',
+                    temple: {
+                        name: 'Test Temple',
+                        location: 'Test City, Test State',
+                        contact: '+91-9999-999999'
+                    },
+                    date: new Date(),
+                    timeSlot: '10:00 AM',
+                    tickets: 2,
+                    ticketType: 'Regular Darshan',
+                    amount: 200,
+                    status: 'confirmed',
+                    devotees: [
+                        { name: 'Test User', age: 30 }
+                    ]
+                };
+
+                // Generate PDF
+                const { downloadTicketPDF } = await import('./src/utils/pdfGenerator.js');
+                const success = await downloadTicketPDF(testBookingData);
+
+                console.log('PDF generation result:', success);
+
+                // Display result
+                resultDiv.textContent = success
+                    ? '✅ PDF generated successfully! Check your downloads folder.'
+                    : '❌ PDF generation failed. Check console for details.';
+                resultDiv.className = `result ${success ? 'success' : 'error'}`;
+                resultDiv.style.display = 'block';
+
+            } catch (error) {
+                console.error('PDF test failed:', error);
+                resultDiv.textContent = `PDF test failed: ${error.message}`;
+                resultDiv.className = 'result error';
+                resultDiv.style.display = 'block';
+            } finally {
+                // Re-enable buttons
+                document.getElementById('qrTestBtn').disabled = false;
+                document.getElementById('pdfTestBtn').disabled = false;
+            }
+        }
+
+        // Make functions global
+        window.testQRGeneration = testQRGeneration;
+        window.testPDFGeneration = testPDFGeneration;
+    </script>
+</body>
+</html>

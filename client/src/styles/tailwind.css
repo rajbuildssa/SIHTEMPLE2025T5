@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* SW1049 Temple Theme Colors */
+    --color-background: #FEF7F0; /* warm temple background */
+    --color-foreground: #2D2520; /* dark brown text */
+    --color-border: #E8D5B7; /* soft temple border */
+    --color-input: #FAF5F0; /* light temple input */
+    --color-ring: #FF6B35; /* saffron accent */
+    
+    /* Card Colors */
+    --color-card: #FFFFFF; /* pristine white */
+    --color-card-foreground: #2D2520; /* dark temple text */
+    --color-popover: #FFFFFF; /* white */
+    --color-popover-foreground: #2D2520; /* dark temple text */
+    
+    /* Muted Colors */
+    --color-muted: #F5EFE7; /* muted temple beige */
+    --color-muted-foreground: #8B7355; /* muted temple brown */
+    
+    /* Primary Colors - Saffron Theme */
+    --color-primary: #FF6B35; /* saffron orange */
+    --color-primary-foreground: #FFFFFF; /* white text on saffron */
+    
+    /* Secondary Colors - Golden Temple */
+    --color-secondary: #DAA520; /* temple gold */
+    --color-secondary-foreground: #2D2520; /* dark text on gold */
+    
+    /* Accent Colors - Sacred Red */
+    --color-accent: #DC2626; /* sacred red */
+    --color-accent-foreground: #FFFFFF; /* white text on red */
+    
+    /* State Colors */
+    --color-success: #16A34A; /* prosperity green */
+    --color-success-foreground: #FFFFFF; /* white */
+    
+    --color-warning: #D97706; /* warning amber */
+    --color-warning-foreground: #FFFFFF; /* white */
+    
+    --color-error: #DC2626; /* error red */
+    --color-error-foreground: #FFFFFF; /* white */
+    
+    --color-destructive: #DC2626; /* destructive red */
+    --color-destructive-foreground: #FFFFFF; /* white */
+    
+    /* Surface Color */
+    --color-surface: #F5EFE7; /* temple surface */
+    
+    /* Text Colors */
+    --color-text-primary: #2D2520; /* primary temple text */
+    --color-text-secondary: #8B7355; /* secondary temple text */
+    
+    /* SW1049 Brand Colors */
+    --color-sw1049-primary: #FF6B35; /* team primary */
+    --color-sw1049-secondary: #DAA520; /* team secondary */
+    --color-sw1049-accent: #DC2626; /* team accent */
+    
+    /* Temple Specific Colors */
+    --color-temple-saffron: #FF9933; /* traditional saffron */
+    --color-temple-white: #FFFFFF; /* purity white */
+    --color-temple-green: #138808; /* prosperity green */
+    --color-temple-gold: #DAA520; /* divine gold */
+    --color-temple-red: #DC2626; /* sacred red */
+    
+    /* Border Radius */
+    --radius: 8px;
+    
+    /* Shadows with Temple Theme */
+    --shadow-sm: 0 2px 4px rgba(218, 165, 32, 0.08);
+    --shadow-md: 0 4px 8px rgba(218, 165, 32, 0.12);
+    --shadow-lg: 0 8px 16px rgba(218, 165, 32, 0.16);
+    --shadow-sacred: 0 4px 20px rgba(255, 107, 53, 0.15);
+  }
+  
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .font-caption {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+  
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  .sacred-shadow {
+    box-shadow: var(--shadow-md);
+  }
+  
+  .sacred-shadow-sm {
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .sacred-shadow-lg {
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .temple-shadow {
+    box-shadow: var(--shadow-sacred);
+  }
+  
+  .breathing-animation {
+    animation: breathe 2s ease-in-out infinite;
+  }
+  
+  @keyframes breathe {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+  
+  .shimmer {
+    background: linear-gradient(90deg, transparent, rgba(218, 165, 32, 0.3), transparent);
+    animation: shimmer 1.5s infinite;
+  }
+  
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  
+  .transition-sacred {
+    transition: all 300ms ease-out;
+  }
+  
+  .transition-hover {
+    transition: all 150ms ease-in-out;
+  }
+  
+  .hover-lift:hover {
+    transform: scale(1.02);
+  }
+  
+  .sw1049-gradient {
+    background: linear-gradient(135deg, var(--color-sw1049-primary), var(--color-sw1049-secondary));
+  }
+  
+  .temple-gradient {
+    background: linear-gradient(135deg, var(--color-temple-saffron), var(--color-temple-gold));
+  }
+  
+  .sacred-border {
+    border: 2px solid var(--color-temple-gold);
+  }
+  
+  .demo-glow {
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+    animation: demo-pulse 2s infinite;
+  }
+  
+  @keyframes demo-pulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 53, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(255, 107, 53, 0.5); }
+  }
+}
