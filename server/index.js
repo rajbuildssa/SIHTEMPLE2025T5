@@ -34,7 +34,46 @@ const io = new Server(server, { cors: { origin: "*" } });
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/sih_temple';
 
-app.use(cors());
+// Configure CORS to allow your frontend domain
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    // Allow localhost for development
+    if (origin.includes('localhost') || origin.includes('127.0.0.1')) {
+      return callback(null, true);
+    }
+    
+    // Allow Vercel frontend domains
+    if (origin.includes('sihtemple-2025frontend') || 
+        origin.includes('vercel.app') ||
+        origin.includes('sihtemple-2025frontende')) {
+      return callback(null, true);
+    }
+    
+    // Allow specific domains
+    const allowedOrigins = [
+      'https://sihtemple-2025frontende-qtw34tw4m-rj-aditys-projects.vercel.app',
+      'https://sihtemple-2025frontend.vercel.app',
+      'http://localhost:3000',
+      'http://localhost:4028',
+      'http://127.0.0.1:3000',
+      'http://127.0.0.1:4028'
+    ];
+    
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    
+    callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+};
+
+app.use(cors(corsOptions));
 // Stripe webhook requires the raw body. Mount a raw parser for that path before JSON parser.
 app.use("/api/payments/webhook", express.raw({ type: "application/json" }));
 app.use(express.json());

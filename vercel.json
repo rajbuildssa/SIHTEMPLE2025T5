@@ -29,6 +29,6 @@
   ],
   "env": {
     "NODE_ENV": "production",
-    "VITE_API_URL": "https://sihtemple-2025backend-n3s0p0cq1-rj-aditys-projects.vercel.app"
+    "VITE_API_URL": "https://sihtemple-2025backendserver-git-master-rj-aditys-projects.vercel.app"
   }
 }
