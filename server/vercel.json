@@ -14,6 +14,11 @@
   ],
   "env": {
     "NODE_ENV": "production",
-    "FRONTEND_URL": "https://sihtemple-2025frontende.vercel.app"
+    "FRONTEND_URL": "https://sihtemple2025t5.vercel.app"
+  },
+  "functions": {
+    "index.js": {
+      "maxDuration": 30
+    }
   }
 }

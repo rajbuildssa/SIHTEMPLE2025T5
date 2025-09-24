@@ -5,7 +5,7 @@
       "src": "client/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "build"
+        "distDir": "dist"
       }
     },
     {
@@ -20,16 +20,19 @@
     },
     {
       "src": "/assets/(.*)",
-      "dest": "/client/build/assets/$1"
+      "dest": "/client/dist/assets/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "/client/build/index.html"
+      "dest": "/client/dist/index.html"
     }
   ],
   "env": {
-    "NODE_ENV": "production",
-    "VITE_API_URL": "https://sihtemple-2025backendserver-git-master-rj-aditys-projects.vercel.app",
-    "FRONTEND_URL": "https://sihtemple-2025frontende.vercel.app"
+    "NODE_ENV": "production"
+  },
+  "functions": {
+    "server/index.js": {
+      "maxDuration": 30
+    }
   }
 }
