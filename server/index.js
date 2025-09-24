@@ -74,6 +74,13 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+// Debug middleware to log all requests
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.path} - Origin: ${req.get('Origin') || 'No Origin'}`);
+  next();
+});
+
 // Stripe webhook requires the raw body. Mount a raw parser for that path before JSON parser.
 app.use("/api/payments/webhook", express.raw({ type: "application/json" }));
 app.use(express.json());
@@ -83,6 +90,21 @@ app.use("/api/temples", templeRoutes(io)); // pass io for real-time updates
 app.use("/api/payments", paymentRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/bookings", bookingRoutes); // <-- new route
+
+// Root route handler
+app.get("/", (req, res) => {
+  res.json({ 
+    message: "Sih Temple Backend API", 
+    status: "Server running",
+    endpoints: {
+      temples: "/api/temples",
+      health: "/api/health",
+      payments: "/api/payments",
+      auth: "/api/auth",
+      bookings: "/api/bookings"
+    }
+  });
+});
 
 app.get("/api/health", (req, res) => res.json({ status: "Server running" }));
 
@@ -172,6 +194,24 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log("Admin disconnected:", socket.id);
+  });
+});
+
+// Catch-all route handler for debugging
+app.use("*", (req, res) => {
+  console.log(`Unhandled route: ${req.method} ${req.originalUrl}`);
+  res.status(404).json({ 
+    error: "Route not found", 
+    method: req.method, 
+    path: req.originalUrl,
+    availableRoutes: [
+      "GET /",
+      "GET /api/health", 
+      "GET /api/temples",
+      "POST /api/seed-temples",
+      "POST /api/payments/checkout",
+      "GET /api/bookings"
+    ]
   });
 });
 
