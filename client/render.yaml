@@ -7,6 +7,6 @@ services:
     staticPublishPath: ./build
     envVars:
       - key: VITE_API_URL
-        value: https://sihtemple2025t5.onrender.com/api
+        value: https://sihtemple2025t5.onrender.com
       - key: NODE_ENV
         value: production

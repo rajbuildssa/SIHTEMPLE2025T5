@@ -20,6 +20,6 @@
     }
   ],
   "env": {
-    "VITE_API_URL": "https://sihtemple2025t5.onrender.com/api"
+    "VITE_API_URL": "https://sihtemple2025t5.onrender.com"
   }
 }
