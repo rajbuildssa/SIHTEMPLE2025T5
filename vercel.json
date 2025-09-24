@@ -30,6 +30,6 @@
   "env": {
     "NODE_ENV": "production",
     "VITE_API_URL": "https://sihtemple-2025backendserver-git-master-rj-aditys-projects.vercel.app",
-    "FRONTEND_URL": "https://sihtemple-2025frontende-qtw34tw4m-rj-aditys-projects.vercel.app"
+    "FRONTEND_URL": "https://sihtemple-2025frontende.vercel.app"
   }
 }

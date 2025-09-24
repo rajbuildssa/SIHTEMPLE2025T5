@@ -46,7 +46,7 @@ router.post("/checkout", async (req, res) => {
     });
 
     // Generate Stripe Checkout session
-    const frontendUrl = process.env.FRONTEND_URL || "https://sihtemple-2025frontende-qtw34tw4m-rj-aditys-projects.vercel.app";
+    const frontendUrl = process.env.FRONTEND_URL || "https://sihtemple-2025frontende.vercel.app";
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: [

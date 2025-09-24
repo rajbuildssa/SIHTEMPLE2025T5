@@ -48,7 +48,8 @@ const corsOptions = {
     // Allow Vercel frontend domains
     if (origin.includes('sihtemple-2025frontend') || 
         origin.includes('vercel.app') ||
-        origin.includes('sihtemple-2025frontende')) {
+        origin.includes('sihtemple-2025frontende') ||
+        origin.includes('sihtemple-2025frontende.vercel.app')) {
       return callback(null, true);
     }
     
@@ -56,6 +57,7 @@ const corsOptions = {
     const allowedOrigins = [
       'https://sihtemple-2025frontende-qtw34tw4m-rj-aditys-projects.vercel.app',
       'https://sihtemple-2025frontend.vercel.app',
+      'https://sihtemple-2025frontende.vercel.app',
       'http://localhost:3000',
       'http://localhost:4028',
       'http://127.0.0.1:3000',
