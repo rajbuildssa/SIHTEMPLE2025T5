@@ -58,6 +58,7 @@ const corsOptions = {
       'https://sihtemple-2025frontende-qtw34tw4m-rj-aditys-projects.vercel.app',
       'https://sihtemple-2025frontend.vercel.app',
       'https://sihtemple-2025frontende.vercel.app',
+      'https://sihtemple2025t5.onrender.com', // Render frontend
       'http://localhost:3000',
       'http://localhost:4028',
       'http://127.0.0.1:3000',
