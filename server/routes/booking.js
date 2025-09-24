@@ -115,4 +115,39 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// Update booking status
+router.put("/:id", async (req, res) => {
+  try {
+    const { status } = req.body;
+    const ticket = await Ticket.findByIdAndUpdate(
+      req.params.id,
+      { paymentStatus: status },
+      { new: true }
+    ).populate("temple");
+    
+    if (!ticket) {
+      return res.status(404).json({ message: "Ticket not found" });
+    }
+    
+    res.json(ticket);
+  } catch (err) {
+    console.error("Error updating ticket:", err);
+    res.status(500).json({ message: "Failed to update ticket", error: err.message });
+  }
+});
+
+// Delete booking
+router.delete("/:id", async (req, res) => {
+  try {
+    const ticket = await Ticket.findByIdAndDelete(req.params.id);
+    if (!ticket) {
+      return res.status(404).json({ message: "Ticket not found" });
+    }
+    res.json({ message: "Booking deleted successfully" });
+  } catch (err) {
+    console.error("Error deleting ticket:", err);
+    res.status(500).json({ message: "Failed to delete ticket", error: err.message });
+  }
+});
+
 export default router;

@@ -56,5 +56,16 @@ export default (io) => {
     }
   });
 
+  // ✅ Get temple by ID for admin dashboard
+  router.get("/:id", async (req, res) => {
+    try {
+      const temple = await Temple.findById(req.params.id);
+      if (!temple) return res.status(404).json({ error: "Temple not found" });
+      res.json(temple);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
   return router;
 };

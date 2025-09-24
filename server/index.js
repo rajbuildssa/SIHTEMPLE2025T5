@@ -211,9 +211,19 @@ app.use((req, res) => {
       "GET /",
       "GET /api/health", 
       "GET /api/temples",
+      "GET /api/temples/:id",
+      "POST /api/temples/:id/visit",
       "POST /api/seed-temples",
       "POST /api/payments/checkout",
-      "GET /api/bookings"
+      "GET /api/payments/confirm",
+      "GET /api/payments/status",
+      "GET /api/bookings",
+      "GET /api/bookings/:id",
+      "POST /api/bookings",
+      "PUT /api/bookings/:id",
+      "DELETE /api/bookings/:id",
+      "GET /api/auth/test",
+      "GET /api/auth/user"
     ]
   });
 });

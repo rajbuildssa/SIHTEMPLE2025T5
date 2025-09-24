@@ -149,3 +149,51 @@ export async function getBooking(id) {
     throw err; // Re-throw to let the calling component handle it
   }
 }
+
+/**
+ * Update booking status
+ */
+export async function updateBookingStatus(id, status) {
+  try {
+    const res = await fetch(getApiUrl(`/bookings/${id}`), {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status })
+    });
+    if (!res.ok) throw new Error("Failed to update booking status");
+    return await res.json();
+  } catch (err) {
+    console.error("Error updating booking status:", err);
+    throw err;
+  }
+}
+
+/**
+ * Delete booking
+ */
+export async function deleteBooking(id) {
+  try {
+    const res = await fetch(getApiUrl(`/bookings/${id}`), {
+      method: "DELETE"
+    });
+    if (!res.ok) throw new Error("Failed to delete booking");
+    return await res.json();
+  } catch (err) {
+    console.error("Error deleting booking:", err);
+    throw err;
+  }
+}
+
+/**
+ * Get temple by ID
+ */
+export async function getTemple(id) {
+  try {
+    const res = await fetch(getApiUrl(`/temples/${id}`));
+    if (!res.ok) throw new Error("Failed to fetch temple");
+    return await res.json();
+  } catch (err) {
+    console.error("Error fetching temple:", err);
+    throw err;
+  }
+}
