@@ -14,11 +14,6 @@
   ],
   "env": {
     "NODE_ENV": "production",
-    "FRONTEND_URL": "https://sihtemple2025t5.vercel.app"
-  },
-  "functions": {
-    "index.js": {
-      "maxDuration": 30
-    }
+    "FRONTEND_URL": "https://client-3h9th7raj-rajbuildssas-projects.vercel.app"
   }
 }

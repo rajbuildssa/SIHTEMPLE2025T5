@@ -54,7 +54,6 @@ export const createTicket = async (templeId, formData, tickets) => {
 /**
  * Increment temple visitor count
  * Used when a visitor enters the temple
- * Socket.IO will notify admin in real-time
  */
 export async function incrementVisitor(templeId) {
   try {

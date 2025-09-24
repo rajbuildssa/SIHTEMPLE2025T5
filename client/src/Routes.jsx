@@ -13,7 +13,6 @@ import EDarshanTicketBooking from './pages/e-darshan-ticket-booking';
 import BookingConfirmationManagement from './pages/booking-confirmation-management';
 import PaymentSuccess from './pages/PaymentSuccess';
 import TicketView from './pages/ticket-view';
-import AdminDashboard from './pages/admin-dashboard';
 import QRTestPage from './pages/qr-test';
 
 const Routes = () => {
@@ -45,11 +44,6 @@ const Routes = () => {
           </SignedIn>
         } />
         <Route path="/ticket/:id" element={<TicketView />} />
-        <Route path="/admin-dashboard" element={
-          <SignedIn>
-            <AdminDashboard />
-          </SignedIn>
-        } />
         <Route path="/qr-test" element={<QRTestPage />} />
         <Route path="*" element={<NotFound />} />
       </RouterRoutes>
